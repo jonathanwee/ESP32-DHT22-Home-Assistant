@@ -1,0 +1,43 @@
+esphome:
+  name: living_room_nodemcu_temphum_sensor
+  platform: ESP32
+  board: esp32doit-devkit-v1
+
+wifi:
+  ssid: "WIFISSID"
+  password: "WIFIPW"
+  manual_ip:
+    # Set this to the IP of the ESP. Commonly starts with 192.168.0.X
+    static_ip: 192.168.0.20
+    # Set this to the IP address of the router. Commonly starts with 192.168.0.X Often ends with .1
+    gateway: 192.168.0.1
+    # The subnet of the network. 255.255.255.0 works for most home networks.
+    subnet: 255.255.255.0
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Nodemcu1 Fallback Hotspot"
+    password: "PASSWORD"
+
+captive_portal:
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: "mypass"
+
+ota:
+  password: "mypass"
+
+sensor:
+  - platform: dht
+    # Data out pin where DHT 22 is connected
+    pin: 2
+    temperature:
+      name: "Temperature"
+    humidity:
+      name: "Humidity"
+    update_interval: 30s
+    model: DHT22
